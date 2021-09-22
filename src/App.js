@@ -5,7 +5,8 @@ function App() {
 
     async function data() {
         try {
-            const response = await fetch('http://localhost:3300/')
+            const url = 'https://murmuring-meadow-11163.herokuapp.com/'
+            const response = await fetch(url)
             const data = await response.text()
             setServerStatus(data)
         } catch (err) {
