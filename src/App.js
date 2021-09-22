@@ -1,25 +1,28 @@
-import logo from './logo.svg';
-import './App.css';
+import { useState, useEffect } from 'react'
 
 function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    const [serverStatus, setServerStatus] = useState('')
+
+    async function data() {
+        try {
+            const response = await fetch('http://localhost:3300/')
+            const data = await response.text()
+            setServerStatus(data)
+        } catch (err) {
+            console.log(err)
+        }
+    }
+
+    useEffect(() => { data() }, [])
+
+    return (
+        <h1>
+            Server message: 
+            <span style={{ color: 'green', padding: '0 10px' }}>
+                {serverStatus}
+            </span>
+        </h1>
+    );
 }
 
 export default App;
